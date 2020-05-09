@@ -1,0 +1,46 @@
+<table style="width:110%">
+    <thead>
+    <tr>
+        <th><h1> Welcome <%= current_user.username %> </h1></th>
+        <th><h4><%= button_to 'Modify account', edit_user_registration_path, method: :get, data: { confirm: 'Are you sure?' } %>  </h4></th>
+        <th><h4><%= button_to 'Rent history', history_path, method: :get %>  </h4></th>
+    </tr>
+   </thead>
+</table>
+
+
+    <h4>  You can rent only <%=3-current_user.items.count%> more games.</h4> 
+    <p><h3>  Here are all your rented games.</h3> </p>
+
+
+<% if current_user.items.with_deleted.length > 0 then %>
+<table style="width:60%">
+  <thead>
+    <tr>
+      <th><h3><b><u>Game</b></u></h3></th>
+      <th><h3><b><u>Genre</u></b></h3></th>
+      <th><h3><b><u>Platform</u></b></h3></th>
+      <th colspan="5"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% current_user.items.each do |item| %>
+      <tr>
+        <td><h4><%= item.name %></h4></td>
+        <td><h4><%= item.description %></h4></td>
+        <td><h4><%= item.platform %></h4></td>
+        <td><h4><%= link_to 'Show', item %></h4></td>
+       <td><h4><%= button_to 'Give back', give_back_path(item), data: { confirm: 'Are you sure?' } %>  </h4></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% else  %>
+    <p><h4> No games rented. 
+<br>        Go to Store to rent games.
+    </h4></p>
+
+<% end %>
+

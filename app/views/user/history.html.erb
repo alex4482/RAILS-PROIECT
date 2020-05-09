@@ -1,0 +1,34 @@
+<table style="width:120%">
+    <thead>
+    <tr>
+        <th><h1> Welcome <%= current_user.username %> </h1></th>
+    </tr>
+   </thead>
+</table>
+
+<h3> Here are all the games you have ever rented. </h3>
+
+<table style="width:60%">
+  <thead>
+    <tr>
+      <th><h3><b><u>Game</b></u></h3></th>
+      <th><h3><b><u>Genre</u></b></h3></th>
+      <th><h3><b><u>Platform</u></b></h3></th>
+      <th colspan="5"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% current_user.items.with_deleted.each do |item| %>
+      <tr>
+        <td><h4><%= item.name %></h4></td>
+        <td><h4><%= item.description %></h4></td>
+        <td><h4><%= item.platform %></h4></td>
+        <td><h4><%= link_to 'Show', item %></h4></td>
+       <td><h4><%= button_to 'Give back', give_back_path(item), data: { confirm: 'Are you sure?' } %>  </h4></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
